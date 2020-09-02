@@ -3,6 +3,7 @@ from player import Player
 from item import Item
 # importing sys so we can use sys.exit() to have the program stop on press of "q"
 import sys
+import os
 
 item = {
     "ruby": Item("ruby", "A shimmering jewel glints by the light of your torch."),
@@ -50,55 +51,38 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 # constructed with a name, current_room
-print("######################")
+os.system('clear')
 print("# What is your name? #")
-print("######################")
+
 playerName = input()
+
 player = Player(playerName, room['outside'])
-print("#########################################")
-print(f"# Hello, {player.name}, here are some instructions! #")
-print("#########################################")
-print(" - Use n, e, s, w to explore the rooms. North, East, South, West -")
-input("Press Enter to continue...")
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
 
+input(f"\n# Hello, {player.name}, Press Enter yo Continue! #\n")
+os.system('clear')
 
-# declaring this outside of loop, so it won't reset every time the loop iterates
 currRoom = player.current_room
 
 while True:
-    print(f"You are {currRoom.name}.")
-    input("Press Enter to continue...")
-    print(currRoom.description)
-    input("Press Enter to continue...")
-    print("You find the following items:")
-    input("Press Enter to continue...")
+    print(
+        f"\n- Use n, e, s, w to explore the rooms. North, East, South, West -\nCurrent Location: {currRoom.name}.\n{currRoom.description}\nYou find the following items: ")
     currRoom.showItems()
-    input("Press Enter to continue...")
     print("Type get (item name here) to grab items")
 
     # for i in player.current_room.itemArr:
-    print("What would you like to do? ")
-    # capturing the input
-    userInput = input()
+    userInput = input(f"{player.name}, what would you like to do? ")
+    os.system('clear')
+
     # logic for moving cardinal directions
     if(hasattr(currRoom, f"{userInput}_to")):
         currRoom = getattr(currRoom, f"{userInput}_to")
     else:
         print("That doesn't lead anywhere.")
+        os.system('clear')
 
     # handling the user inputs the game
     if userInput == "q":
-        print("You end your journey at the tipof your own sword!")
+        print("You end your journey at the tip of your own sword!")
         sys.exit()
     elif 'get' in userInput:
         # slicing the item the user wants out of the string they insert
@@ -107,6 +91,7 @@ while True:
         if actionItem[1] not in player.itemArr:
             player.getItem(actionItem[1])
             player.current_room.showItems()
+            os.system('clear')
             print(f"You have picked up the {actionItem[1]}")
             print(f"You now have the following items:")
             player.showItems()

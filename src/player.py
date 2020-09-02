@@ -16,7 +16,7 @@ class Player:
         else:
             print("There are no items in the room")
 
-    # methods for piccking up item
+    # methods for picking up item
     def getItem(self, item):
         return self.itemArr.append(item)
 
