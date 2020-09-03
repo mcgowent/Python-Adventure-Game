@@ -58,7 +58,7 @@ playerName = input()
 
 player = Player(playerName, room['outside'])
 
-input(f"\n# Hello, {player.name}, Press Enter yo Continue! #\n")
+input(f"\n# Hello, {player.name}, Press Enter to Continue! #\n")
 os.system('clear')
 
 currRoom = player.current_room
@@ -76,6 +76,7 @@ while True:
     # logic for moving cardinal directions
     if(hasattr(currRoom, f"{userInput}_to")):
         currRoom = getattr(currRoom, f"{userInput}_to")
+        player.current_room = currRoom
     else:
         print("That doesn't lead anywhere.")
         os.system('clear')
